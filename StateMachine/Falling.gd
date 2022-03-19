@@ -7,8 +7,7 @@ func _ready():
 	yield(player, "ready")
 
 func start():
-	player.set_animation("Falling")
-	player.jump_power = Vector2.ZERO
+	player.set_animation("Jumping")
 
 func physics_process(_delta):
 	if player.is_on_floor() and player.velocity.y > 0:
@@ -20,11 +19,6 @@ func physics_process(_delta):
 		return
 	if player.is_on_ceiling():
 		player.velocity.y = 0
-	if Input.is_action_pressed("jump") and not player.double_jumped and SM.previous_state.name != "WallJump":
-		player.double_jumped = true
-		SM.set_state("Jumping")
-		
-	SM.get_node("WallJump").check_walljump()
-		
+
 	player.velocity += player.move_speed * player.move_vector() + player.gravity
 	player.move_and_slide(player.velocity, Vector2.UP)
