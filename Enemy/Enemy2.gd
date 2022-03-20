@@ -4,7 +4,7 @@ export var constraint_left = Vector2(0,0)
 export var constraint_right = Vector2(100,0)
 export var speed = 3
 
-export var damage = 10
+export var damage = 50
 
 func _ready():
 	pass
@@ -21,7 +21,5 @@ func _physics_process(_delta):
 
 func _on_Area2D_body_entered(body):
 	if body.name == "Player":
+		#body.do_damage(damage)
 		body.queue_free()
-	if body.name == "Player":
-		body.do_damage(damage)
-		queue_free()

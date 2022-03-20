@@ -11,8 +11,8 @@ var levels = [
 	load("res://Levels/Level2.tscn")
 ]
 
-var player1_health = 100
-var player1_maxhealth = 100
+var health = 100
+var max_health = 100
 
 var level = 1
 var score = 0
@@ -40,6 +40,9 @@ func increase_score(s):
 	var hud = get_node_or_null("/root/Game/HUD")
 	if hud != null:
 		hud.update_score()
+
+func decrease_health(h):
+	health -= h
 
 func save_game():
 	var save_game = File.new()

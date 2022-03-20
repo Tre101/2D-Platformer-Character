@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://StateMachine/Player_Container.gd" type="Script" id=1]
 [ext_resource path="res://Camera.gd" type="Script" id=2]
@@ -13,9 +13,10 @@
 [ext_resource path="res://Assets/tile_crate.png" type="Texture" id=11]
 [ext_resource path="res://Assets/tile_column.png" type="Texture" id=12]
 [ext_resource path="res://Enemy/Enemies.gd" type="Script" id=13]
+[ext_resource path="res://Background/ParallaxBackground.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Enemy/Enemy.gd" type="Script" id=15]
-[ext_resource path="res://Assets/tile_door.png" type="Texture" id=16]
-[ext_resource path="res://Levels/Door.gd" type="Script" id=17]
+[ext_resource path="res://Door/Door.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Assets/Child's Nightmare.ogg" type="AudioStream" id=17]
 [ext_resource path="res://Coins/Coin.tscn" type="PackedScene" id=18]
 
 [sub_resource type="NavigationPolygon" id=15]
@@ -228,6 +229,8 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 
 [node name="Game" type="Node2D"]
 
+[node name="ParallaxBackground" parent="." instance=ExtResource( 14 )]
+
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
@@ -294,16 +297,7 @@ polygon = PoolVector2Array( 32, -32, 32, 32, -32, 32, -32, -32, 31, -32 )
 
 [node name="HUD" parent="." instance=ExtResource( 5 )]
 
-[node name="Door" type="Area2D" parent="."]
-script = ExtResource( 17 )
-
-[node name="Sprite" type="Sprite" parent="Door"]
-position = Vector2( 3648, 160 )
-texture = ExtResource( 16 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Door"]
-position = Vector2( 3648, 160 )
-polygon = PoolVector2Array( 24, -27.2, 24, -25.8, 31, -18.8, 31, -16.5, 32, -14.9, 32, 32, -32, 32, -32, -16, -22, -29, -19.5, -29, -14.2, -32, 14.4, -32 )
+[node name="Door" parent="." instance=ExtResource( 16 )]
 
 [node name="Coins" type="Node2D" parent="."]
 
@@ -322,4 +316,7 @@ position = Vector2( 1824, 96 )
 [node name="Coin5" parent="Coins" instance=ExtResource( 18 )]
 position = Vector2( 2144, 360 )
 
-[connection signal="body_entered" from="Door" to="Door" method="_on_Door_body_entered"]
+[node name="Level1Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 17 )
+autoplay = true
+max_distance = 6000.0

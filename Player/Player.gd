@@ -30,6 +30,8 @@ export var light_kick = 15
 export var med_kick = 25
 export var heavy_kick = 40
 
+var health = 100
+
 var Enemy = null
 
 var moves = []
@@ -67,8 +69,15 @@ func is_on_floor():
 			return true
 	return false
 
+func do_damage(d):
+	Global.decrease_health(d)
+	if Global.health <= 0:
+		die()
+
 func die():
+	get_tree().change_scene("res://UI/Lost_Screen.tscn")
 	queue_free()
+	
 
 
 func _on_AnimatedSprite_animation_finished():
